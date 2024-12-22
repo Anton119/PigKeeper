@@ -39,6 +39,7 @@ func getInputInt() int {
 
 // показывает информацию по всей ветеке (расходы/доходы)
 func showData(expences map[string]map[string]int) {
+	var choice string
 
 	for outerKey, innerMap := range expences {
 		fmt.Printf("%s:\n", outerKey)
@@ -46,6 +47,11 @@ func showData(expences map[string]map[string]int) {
 			fmt.Printf("%s = %d\n", innerKey, value)
 		}
 		fmt.Println()
+	}
+	fmt.Println("0)Выход в главное меню")
+	fmt.Scan(&choice)
+	if choice == "0" {
+		mainInterface()
 	}
 }
 
@@ -69,7 +75,9 @@ func countCategorySum(m map[string]int) int {
 	return sum
 }
 
-func main() {
+func mainInterface() {
+	fmt.Println("Добро пожаловать в Pig Keeper! Что вы желаете сделать?\n1)Добавить операцию 2)Посмотреть расходы 0)Выход")
+	var choice string
 	expences := make(map[string]map[string]int)
 
 	expences["еда"] = make(map[string]int)
@@ -81,7 +89,27 @@ func main() {
 	expences["машина"]["бензин"] = 1000
 	expences["машина"]["ремонт"] = 2000
 
-	showData(expences)
-	addOperation(expences)
-	showData(expences)
+	for {
+		fmt.Scan(&choice)
+		if choice == "1" {
+			addOperation(expences)
+			fmt.Println("Ваша операция успешно добавлена!\n1)Добавить операцию 2)Посмотреть расходы 0)Выход в главное меню")
+			fmt.Scan(&choice)
+			if choice == "1" {
+				addOperation(expences)
+			} else if choice == "2" {
+				showData(expences)
+			} else if choice == "0" {
+				mainInterface()
+			}
+		} else if choice == "2" {
+			showData(expences)
+		} else if choice == "0" {
+			break
+		}
+	}
+}
+
+func main() {
+	mainInterface()
 }

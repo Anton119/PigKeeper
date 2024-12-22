@@ -1,28 +1,51 @@
 package main
 
-import (
-	"fmt"
-)
+import "fmt"
+
+type Operation struct {
+	Name  string
+	Value int
+}
+
+type Category struct {
+	Name       string
+	Operations Operation
+}
+
+type Expenses struct {
+	Categories Category
+}
 
 func main() {
-	// Создаем мапу, где ключи - строки, а значения - мапы
-	nestedMap := make(map[string]map[string]int)
+	var operation Operation
 
-	// Инициализируем вложенные мапы
-	nestedMap["first"] = make(map[string]int)
-	nestedMap["first"]["a"] = 1
-	nestedMap["first"]["b"] = 2
+	operation.Name = "молоко"
+	operation.Value = 90
+	//fmt.Println(operation.Name, operation.Value)
 
-	nestedMap["second"] = make(map[string]int)
-	nestedMap["second"]["c"] = 3
-	nestedMap["second"]["d"] = 4
+	var category Category
+	category.Name = "еда"
+	//category.Operations = [
 
-	// Выводим значения
-	for outerKey, innerMap := range nestedMap {
-		fmt.Printf("%s: ", outerKey)
-		for innerKey, value := range innerMap {
-			fmt.Printf("%s=%d ", innerKey, value)
-		}
-		fmt.Println()
-	}
+	//fmt.Println(category)
+
+	// создание категории
+	var expences Expenses
+	var cat string
+	var oper string
+	var money int
+	fmt.Println("Enter category")
+	fmt.Scan(&cat)
+	expences.Categories.Name = cat
+	fmt.Println(expences)
+
+	fmt.Println("Enter operation")
+	fmt.Scan(&oper)
+	fmt.Println("Enter sum")
+	fmt.Scan(&money)
+
+	expences.Categories.Operations.Name = oper
+	expences.Categories.Operations.Value = money
+	fmt.Println(expences)
+
 }
